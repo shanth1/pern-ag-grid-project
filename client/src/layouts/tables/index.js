@@ -10,6 +10,12 @@ import { officeColumnDefs } from "./columnDefs/officeColumnDefs";
 import { employeeColumnDefs } from "./columnDefs/employeeColumnDefs";
 import { useMaterialUIController } from "context";
 import { Table } from "./components/Table";
+import { EmployeeHeader } from "./components/EmployeeHeader";
+import { Card, Modal } from "@mui/material";
+import MDBox from "components/MDBox";
+import MDButton from "components/MDButton";
+import MDInput from "components/MDInput";
+import MDTypography from "components/MDTypography";
 
 function Tables() {
     const [controller] = useMaterialUIController();
@@ -42,7 +48,7 @@ function Tables() {
                 cellClickListener={officeCelListener}
             />
             <Table
-                header={"Сотрудники офиса"}
+                header={<EmployeeHeader />}
                 columnDefs={employeeColumnDefs}
                 rowData={employeeData}
                 themeColor={themeColor}
