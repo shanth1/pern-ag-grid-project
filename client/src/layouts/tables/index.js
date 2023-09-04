@@ -20,7 +20,6 @@ function Tables() {
     const officeCelListener = (e) => {
         const officeId = e.data.id;
         getEmployeeFromOffice(officeId).then(({ data }) => {
-            console.log(data);
             setEmployeeData(data);
         });
     };

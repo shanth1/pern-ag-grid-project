@@ -1,78 +1,39 @@
-const Date = ({ value }) => {
-    return <div>{value.slice(0, 10)}</div>;
-};
-
-const Passport = ({ value }) => {
-    return <div>{value.slice(0, 4) + " " + value.slice(4)}</div>;
-};
-
-const Gender = ({ value }) => {
-    let gender = "";
-    switch (value) {
-        case "male":
-            gender = "👨🏻‍🦰 Male";
-            break;
-        case "female":
-            gender = "👩🏼 Female";
-            break;
-        default:
-            break;
-    }
-    return <div>{gender}</div>;
-};
-
-const Salary = ({ value }) => {
-    return <div>{value} ₽</div>;
-};
-
-const Position = ({ value }) => {
-    let position = "";
-    switch (value) {
-        case "director":
-            position = "Director";
-            break;
-        case "projectManager":
-            position = "Project Manager";
-            break;
-        case "analytic":
-            position = "Analytic";
-            break;
-        case "designer":
-            position = "Designer";
-            break;
-        case "teamLeader":
-            position = "Team Leader";
-            break;
-        case "seniorDeveloper":
-            position = "Senior Developer";
-            break;
-        case "middleDeveloper":
-            position = "Middle Developer";
-            break;
-        case "juniorDeveloper":
-            position = "Junior Developer";
-            break;
-        default:
-            break;
-    }
-    return <div>{position}</div>;
-};
+import { dateComparator } from "../utils/dateComparator";
+import { DateRender } from "./components/DateRender";
+import { GenderRender } from "./components/GenderRender";
+import { PassportRender } from "./components/PassportRender";
+import { PositionRender } from "./components/PossitionRender";
+import { SalaryRender } from "./components/SalaryRender";
 
 export const employeeColumnDefs = [
-    { field: "firstName" },
-    { field: "lastName" },
+    { field: "firstName", filter: "agTextColumnFilter" },
+    { field: "lastName", filter: "agTextColumnFilter" },
     {
         field: "gender",
         sortable: false,
+        filter: "agTextColumnFilter",
         comparator: (valueA, valueB) => valueA - valueB,
-        cellRenderer: Gender,
+        cellRenderer: GenderRender,
     },
-    { field: "position", sortable: false, cellRenderer: Position },
+    {
+        field: "position",
+        filter: "agTextColumnFilter",
+        sortable: false,
+        cellRenderer: PositionRender,
+    },
     {
         field: "salary",
+        filter: "agNumberColumnFilter",
         comparator: (valueA, valueB) => valueA - valueB,
-        cellRenderer: Salary,
+        cellRenderer: SalaryRender,
     },
-    { field: "birthday", cellRenderer: Date },
-    { field: "passport", sortable: false, cellRenderer: Passport },
+    {
+        field: "birthday",
+        filter: "agDateColumnFilter",
+        cellRenderer: DateRender,
+        filterParams: {
+            comparator: dateComparator,
+        },
+    },
+    { field: "passport", sortable: false, cellRenderer: PassportRender },
 ];

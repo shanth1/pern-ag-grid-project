@@ -1,18 +1,33 @@
-const Date = ({ value }) => {
-    return <div>{value.slice(0, 10)}</div>;
-};
+import { dateComparator } from "../utils/dateComparator";
+import { DateRender } from "./components/DateRender";
 
 export const officeColumnDefs = [
-    { field: "country" },
+    { field: "country", filter: "agTextColumnFilter" },
     { field: "city" },
     {
         field: "square",
+        filter: "agNumberColumnFilter",
         comparator: (valueA, valueB) => valueA - valueB,
     },
     {
         field: "squareRentPrice",
+        filter: "agNumberColumnFilter",
         comparator: (valueA, valueB) => valueA - valueB,
     },
-    { field: "openingDate", cellRenderer: Date },
-    { field: "createdAt", cellRenderer: Date },
+    {
+        field: "openingDate",
+        filter: "agDateColumnFilter",
+        cellRenderer: DateRender,
+        filterParams: {
+            comparator: dateComparator,
+        },
+    },
+    {
+        field: "createdAt",
+        filter: "agDateColumnFilter",
+        cellRenderer: DateRender,
+        filterParams: {
+            comparator: dateComparator,
+        },
+    },
 ];

@@ -5,7 +5,11 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 
 export const AgTable = ({ columnDefs, rowData, cellClickListener }) => {
     const defaultColDefs = useMemo(
-        () => ({ sortable: true, filter: true }),
+        () => ({
+            sortable: true,
+            filter: true,
+            filterParams: { buttons: ["clear"] },
+        }),
         [],
     );
 
