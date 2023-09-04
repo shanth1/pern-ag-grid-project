@@ -11,11 +11,7 @@ import { employeeColumnDefs } from "./columnDefs/employeeColumnDefs";
 import { useMaterialUIController } from "context";
 import { Table } from "./components/Table";
 import { EmployeeHeader } from "./components/EmployeeHeader";
-import { Card, Modal } from "@mui/material";
-import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
-import MDInput from "components/MDInput";
-import MDTypography from "components/MDTypography";
+import { MyModal } from "./components/MyModal";
 
 function Tables() {
     const [controller] = useMaterialUIController();
@@ -37,9 +33,14 @@ function Tables() {
         });
     }, []);
 
+    const [addModalActive, setAddModalActive] = useState(false);
+    const addHandleOpen = () => setAddModalActive(true);
+    const addHandleClose = () => setAddModalActive(false);
+
     return (
         <DashboardLayout>
             <DashboardNavbar />
+            <MyModal active={addModalActive} handleClose={addHandleClose} />
             <Table
                 header={"Офисы компании"}
                 columnDefs={officeColumnDefs}
@@ -48,7 +49,7 @@ function Tables() {
                 cellClickListener={officeCelListener}
             />
             <Table
-                header={<EmployeeHeader />}
+                header={<EmployeeHeader addHandleOpen={addHandleOpen} />}
                 columnDefs={employeeColumnDefs}
                 rowData={employeeData}
                 themeColor={themeColor}
