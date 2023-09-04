@@ -9,13 +9,23 @@ export const AgTable = ({ columnDefs, rowData, cellClickListener }) => {
             sortable: true,
             filter: true,
             filterParams: { buttons: ["clear"] },
+            resizable: true,
+            cellStyle: (params) => {
+                return { cursor: "pointer" };
+            },
         }),
         [],
     );
 
     return (
-        <div className="ag-theme-alpine" style={{ height: 500 }}>
+        <div
+            className="ag-theme-alpine "
+            style={{
+                height: 500,
+            }}
+        >
             <AgGridReact
+                // noRowsOverlayComponent={(p) => <div></div>}
                 rowData={rowData}
                 rowSelection="single"
                 onCellClicked={cellClickListener}
