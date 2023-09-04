@@ -10,30 +10,8 @@ import { useEffect, useState } from "react";
 import { AgTable } from "./components/AgTable";
 import { getEmployeeFromOffice } from "api/employee";
 
-const officeColumnDefs = [
-    { field: "country" },
-    { field: "city" },
-    {
-        field: "square",
-        comparator: (valueA, valueB) => valueA - valueB,
-    },
-    {
-        field: "squareRentPrice",
-        comparator: (valueA, valueB) => valueA - valueB,
-    },
-    { field: "openingDate" },
-    { field: "createdAt" },
-];
-
-const employeeColumnDefs = [
-    { field: "firstName" },
-    { field: "lastName" },
-    { field: "gender" },
-    { field: "position" },
-    { field: "salary" },
-    { field: "birthday" },
-    { field: "passport" },
-];
+import { officeColumnDefs } from "./columnDefs/officeColumnDefs";
+import { employeeColumnDefs } from "./columnDefs/employeeColumnDefs";
 
 function Tables() {
     const [officeData, setOfficeData] = useState([]);
