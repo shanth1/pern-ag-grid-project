@@ -8,8 +8,13 @@ class EmployeeController {
 
     async getOne(req, res) {
         const { id } = req.params;
-        console.log(id);
         const data = await Employee.findOne({ where: { id } });
+        res.json(data);
+    }
+
+    async getAllFromOffice(req, res) {
+        const { officeId } = req.params;
+        const data = await Employee.findAll({ where: { officeId } });
         res.json(data);
     }
 
