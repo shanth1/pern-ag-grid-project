@@ -4,6 +4,10 @@ const employeeController = require("../controllers/employeeController");
 
 employeeRouter.get("/", employeeController.getAll);
 employeeRouter.get("/:id", employeeController.getOne);
+employeeRouter.get(
+    "/fromOffice/:officeId",
+    employeeController.getAllFromOffice,
+);
 employeeRouter.post("/", employeeController.create);
 employeeRouter.put("/:id", employeeController.update);
 employeeRouter.delete("/:id", employeeController.delete);
