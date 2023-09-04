@@ -2,8 +2,13 @@ import React, { useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import "./styles.css";
+import { useMaterialUIController } from "context";
 
 export const AgTable = ({ columnDefs, rowData, cellClickListener }) => {
+    const [controller] = useMaterialUIController();
+    const isDarkTheme = controller.darkMode;
+
     const defaultColDefs = useMemo(
         () => ({
             sortable: true,
@@ -19,7 +24,7 @@ export const AgTable = ({ columnDefs, rowData, cellClickListener }) => {
 
     return (
         <div
-            className="ag-theme-alpine "
+            className={isDarkTheme ? "ag-theme-alpine-dark" : "ag-theme-alpine"}
             style={{
                 height: 500,
             }}

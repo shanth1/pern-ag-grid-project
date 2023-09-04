@@ -1,0 +1,10 @@
+.ag-theme-alpine {
+  --ag-borders: none;
+}
+
+.ag-theme-alpine-dark{
+  --ag-borders: none;
+  --ag-header-background-color: #1F283F;
+  --ag-background-color: #222f45;
+  --ag-odd-row-background-color: #212d42;
+}

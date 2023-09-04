@@ -40,7 +40,6 @@ export default function App() {
     const {
         miniSidenav,
         direction,
-        layout,
         openConfigurator,
         sidenavColor,
         transparentSidenav,
@@ -128,28 +127,23 @@ export default function App() {
     return (
         <ThemeProvider theme={darkMode ? themeDark : theme}>
             <CssBaseline />
-            {layout === "dashboard" && (
-                <>
-                    <Sidenav
-                        color={sidenavColor}
-                        brand={
-                            (transparentSidenav && !darkMode) || whiteSidenav
-                                ? brandDark
-                                : brandWhite
-                        }
-                        brandName="Material Dashboard 2"
-                        routes={routes}
-                        onMouseEnter={handleOnMouseEnter}
-                        onMouseLeave={handleOnMouseLeave}
-                    />
-                    <Configurator />
-                    {configsButton}
-                </>
-            )}
-            {layout === "vr" && <Configurator />}
+            <Sidenav
+                color={sidenavColor}
+                brand={
+                    (transparentSidenav && !darkMode) || whiteSidenav
+                        ? brandDark
+                        : brandWhite
+                }
+                brandName="Material Dashboard 2"
+                routes={routes}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+            />
+            <Configurator />
+            {configsButton}
             <Routes>
                 {getRoutes(routes)}
-                <Route path="*" element={<Navigate to="/dashboard" />} />
+                <Route path="*" element={<Navigate to="/tables" />} />
             </Routes>
         </ThemeProvider>
     );

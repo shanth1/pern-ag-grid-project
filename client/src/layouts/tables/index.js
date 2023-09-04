@@ -1,19 +1,20 @@
-// Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 import { getAllOffices } from "api/office";
 import { useEffect, useState } from "react";
-import { AgTable } from "./components/AgTable";
 import { getEmployeeFromOffice } from "api/employee";
 
 import { officeColumnDefs } from "./columnDefs/officeColumnDefs";
 import { employeeColumnDefs } from "./columnDefs/employeeColumnDefs";
+import { useMaterialUIController } from "context";
+import { Table } from "./components/Table";
 
 function Tables() {
+    const [controller] = useMaterialUIController();
+    const themeColor = controller.sidenavColor;
+
     const [officeData, setOfficeData] = useState([]);
     const [employeeData, setEmployeeData] = useState([]);
 
@@ -33,20 +34,19 @@ function Tables() {
     return (
         <DashboardLayout>
             <DashboardNavbar />
-            <MDBox mb={3} />
-            <MDBox mb={3}>
-                <AgTable
-                    columnDefs={officeColumnDefs}
-                    rowData={officeData}
-                    cellClickListener={officeCelListener}
-                />
-            </MDBox>
-            <MDBox>
-                <AgTable
-                    columnDefs={employeeColumnDefs}
-                    rowData={employeeData}
-                />
-            </MDBox>
+            <Table
+                header={"Офисы компании"}
+                columnDefs={officeColumnDefs}
+                rowData={officeData}
+                themeColor={themeColor}
+                cellClickListener={officeCelListener}
+            />
+            <Table
+                header={"Сотрудники офиса"}
+                columnDefs={employeeColumnDefs}
+                rowData={employeeData}
+                themeColor={themeColor}
+            />
         </DashboardLayout>
     );
 }
