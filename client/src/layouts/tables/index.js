@@ -61,6 +61,7 @@ function Tables() {
             <Table
                 header={
                     <EmployeeHeader
+                        themeColor={themeColor}
                         addHandleOpen={addHandleOpen}
                         officeId={selectedOfficeId}
                         setEmployeeData={setEmployeeData}

@@ -23,6 +23,7 @@ export const EmployeeHeader = ({
     employeeId,
     setEmployeeId,
     addHandleOpen,
+    themeColor,
 }) => {
     const deleteHandler = () => {
         setEmployeeId();
@@ -41,7 +42,7 @@ export const EmployeeHeader = ({
             <Grid item xs={4} md={3}>
                 <MDButton
                     onClick={addHandleOpen}
-                    color="info"
+                    color={themeColor}
                     size="medium"
                     sx={buttonStyles}
                     fullWidth
@@ -51,7 +52,7 @@ export const EmployeeHeader = ({
             </Grid>
             <Grid item xs={4} md={3}>
                 <MDButton
-                    color="info"
+                    color={themeColor}
                     size="medium"
                     sx={buttonStyles}
                     fullWidth
@@ -63,7 +64,7 @@ export const EmployeeHeader = ({
             <Grid item xs={4} md={3}>
                 <MDButton
                     onClick={deleteHandler}
-                    color="info"
+                    color={themeColor}
                     size="medium"
                     sx={buttonStyles}
                     fullWidth
