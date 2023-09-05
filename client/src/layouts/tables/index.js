@@ -20,11 +20,21 @@ function Tables() {
     const [officeData, setOfficeData] = useState([]);
     const [employeeData, setEmployeeData] = useState([]);
 
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState();
+    const [selectedOfficeId, setSelectedOfficeId] = useState();
+
     const officeCelListener = (e) => {
         const officeId = e.data.id;
+        setSelectedOfficeId(officeId);
+        setSelectedEmployeeId();
         getEmployeeFromOffice(officeId).then(({ data }) => {
             setEmployeeData(data);
         });
+    };
+
+    const employeeCelListener = (e) => {
+        const employeeId = e.data.id;
+        setSelectedEmployeeId(employeeId);
     };
 
     useEffect(() => {
@@ -49,10 +59,19 @@ function Tables() {
                 cellClickListener={officeCelListener}
             />
             <Table
-                header={<EmployeeHeader addHandleOpen={addHandleOpen} />}
+                header={
+                    <EmployeeHeader
+                        addHandleOpen={addHandleOpen}
+                        officeId={selectedOfficeId}
+                        setEmployeeData={setEmployeeData}
+                        employeeId={selectedEmployeeId}
+                        setEmployeeId={setSelectedEmployeeId}
+                    />
+                }
                 columnDefs={employeeColumnDefs}
                 rowData={employeeData}
                 themeColor={themeColor}
+                cellClickListener={employeeCelListener}
             />
         </DashboardLayout>
     );

@@ -8,3 +8,9 @@ export const getEmployeeFromOffice = async (officeId) => {
         `${protocol}://${host}:${port}/api/employee/fromOffice/${officeId}`,
     );
 };
+
+export const deleteEmployee = async (employeeId) => {
+    return axios.delete(
+        `${protocol}://${host}:${port}/api/employee/${employeeId}`,
+    );
+};

@@ -1,4 +1,6 @@
 import { Grid } from "@mui/material";
+import { getEmployeeFromOffice } from "api/employee";
+import { deleteEmployee } from "api/employee";
 import MDButton from "components/MDButton";
 
 const buttonStyles = {
@@ -15,7 +17,22 @@ const buttonStyles = {
     },
 };
 
-export const EmployeeHeader = ({ addHandleOpen }) => {
+export const EmployeeHeader = ({
+    officeId,
+    setEmployeeData,
+    employeeId,
+    setEmployeeId,
+    addHandleOpen,
+}) => {
+    const deleteHandler = () => {
+        setEmployeeId();
+        deleteEmployee(employeeId).then(() => {
+            getEmployeeFromOffice(officeId).then(({ data }) => {
+                setEmployeeData(data);
+            });
+        });
+    };
+
     return (
         <Grid container spacing={{ xs: 2, md: 3 }}>
             <Grid mt={1} item xs={12} md={3}>
@@ -45,11 +62,12 @@ export const EmployeeHeader = ({ addHandleOpen }) => {
             </Grid>
             <Grid item xs={4} md={3}>
                 <MDButton
+                    onClick={deleteHandler}
                     color="info"
                     size="medium"
                     sx={buttonStyles}
                     fullWidth
-                    disabled={false}
+                    disabled={!employeeId}
                 >
                     Удалить
                 </MDButton>
