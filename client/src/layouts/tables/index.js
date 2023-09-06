@@ -11,11 +11,13 @@ import { employeeColumnDefs } from "./columnDefs/employeeColumnDefs";
 import { useMaterialUIController } from "context";
 import { Table } from "./components/Table";
 import { EmployeeHeader } from "./components/EmployeeHeader";
-import { MyModal } from "./components/MyModal";
+import { EmployeeForm } from "./components/EmployeeForm";
+import { BasicModal } from "./components/BasicModal";
 
 function Tables() {
     const [controller] = useMaterialUIController();
-    const themeColor = controller.sidenavColor;
+    const { sidenavColor, darkMode } = controller;
+    const themeColor = sidenavColor;
 
     const [officeData, setOfficeData] = useState([]);
     const [employeeData, setEmployeeData] = useState([]);
@@ -50,7 +52,16 @@ function Tables() {
     return (
         <DashboardLayout>
             <DashboardNavbar />
-            <MyModal active={addModalActive} handleClose={addHandleClose} />
+            <BasicModal
+                active={addModalActive}
+                handleClose={addHandleClose}
+                darkMode={darkMode}
+            >
+                <EmployeeForm
+                    themeColor={themeColor}
+                    addHandleClose={addHandleClose}
+                />
+            </BasicModal>
             <Table
                 header={"Офисы компании"}
                 columnDefs={officeColumnDefs}

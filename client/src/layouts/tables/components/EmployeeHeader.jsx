@@ -3,20 +3,6 @@ import { getEmployeeFromOffice } from "api/employee";
 import { deleteEmployee } from "api/employee";
 import MDButton from "components/MDButton";
 
-const buttonStyles = {
-    background: "transparent",
-    color: "white",
-    border: `2px solid white`,
-    height: "20px",
-
-    "&:hover, &:focus, &:focus:not(:hover)": {
-        background: "transparent",
-        color: "white",
-        border: `2px solid white`,
-        shadow: "",
-    },
-};
-
 export const EmployeeHeader = ({
     officeId,
     setEmployeeData,
@@ -43,8 +29,9 @@ export const EmployeeHeader = ({
                 <MDButton
                     onClick={addHandleOpen}
                     color={themeColor}
+                    variant="gradient"
                     size="medium"
-                    sx={buttonStyles}
+                    sx={{ border: `2px solid white` }}
                     fullWidth
                 >
                     Добавить
@@ -54,7 +41,8 @@ export const EmployeeHeader = ({
                 <MDButton
                     color={themeColor}
                     size="medium"
-                    sx={buttonStyles}
+                    variant="gradient"
+                    sx={{ border: `2px solid white` }}
                     fullWidth
                     disabled={false}
                 >
@@ -66,7 +54,8 @@ export const EmployeeHeader = ({
                     onClick={deleteHandler}
                     color={themeColor}
                     size="medium"
-                    sx={buttonStyles}
+                    variant="gradient"
+                    sx={{ border: `2px solid white` }}
                     fullWidth
                     disabled={!employeeId}
                 >
