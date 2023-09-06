@@ -2,8 +2,12 @@ import { Grid, MenuItem, TextField } from "@mui/material";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import BasicDateField from "./BasicDateField";
+import { useMaterialUIController } from "context";
 
-export const EmployeeForm = ({ themeColor, addHandleClose }) => {
+export const EmployeeForm = ({ addHandleClose }) => {
+    const [controller] = useMaterialUIController();
+    const { sidenavColor: themeColor } = controller;
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>

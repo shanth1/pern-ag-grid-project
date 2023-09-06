@@ -2,14 +2,12 @@ import { Card, Grid } from "@mui/material";
 import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
 import { AgTable } from "./AgTable/AgTable";
+import { useMaterialUIController } from "context";
 
-export const Table = ({
-    header,
-    columnDefs,
-    rowData,
-    cellClickListener,
-    themeColor,
-}) => {
+export const Table = ({ header, columnDefs, rowData, cellClickListener }) => {
+    const [controller] = useMaterialUIController();
+    const { sidenavColor: themeColor } = controller;
+
     return (
         <MDBox pt={6} pb={3}>
             <Grid container spacing={6}>

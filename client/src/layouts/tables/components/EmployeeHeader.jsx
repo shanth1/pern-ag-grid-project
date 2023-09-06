@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import { getEmployeeFromOffice } from "api/employee";
 import { deleteEmployee } from "api/employee";
 import MDButton from "components/MDButton";
+import { useMaterialUIController } from "context";
 
 export const EmployeeHeader = ({
     officeId,
@@ -9,8 +10,10 @@ export const EmployeeHeader = ({
     employeeId,
     setEmployeeId,
     addHandleOpen,
-    themeColor,
 }) => {
+    const [controller] = useMaterialUIController();
+    const { sidenavColor: themeColor } = controller;
+
     const deleteHandler = () => {
         setEmployeeId();
         deleteEmployee(employeeId).then(() => {

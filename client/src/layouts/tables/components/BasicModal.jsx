@@ -1,8 +1,12 @@
 import { Modal } from "@mui/material";
 import colors from "assets/theme/base/colors";
 import MDBox from "components/MDBox";
+import { useMaterialUIController } from "context";
 
-export const BasicModal = ({ children, active, handleClose, darkMode }) => {
+export const BasicModal = ({ children, active, handleClose }) => {
+    const [controller] = useMaterialUIController();
+    const { darkMode } = controller;
+
     const style = {
         position: "absolute",
         top: "50%",
