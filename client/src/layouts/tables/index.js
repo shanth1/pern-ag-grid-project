@@ -1,6 +1,6 @@
 // Material Dashboard 2 React example components
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import DashboardLayout from "examples/DashboardLayout";
+import DashboardNavbar from "examples/DashboardNavbar";
 
 import { getAllOffices } from "api/office";
 import { useEffect, useState } from "react";
@@ -86,6 +86,7 @@ function Tables() {
                             setEmployeeId={setSelectedEmployeeId}
                         />
                     }
+                    selectedOfficeId={selectedOfficeId}
                     columnDefs={employeeColumnDefs}
                     rowData={employeeData}
                     cellClickListener={employeeCelListener}

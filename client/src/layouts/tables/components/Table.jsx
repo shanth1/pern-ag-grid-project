@@ -4,7 +4,13 @@ import MDBox from "components/MDBox";
 import { AgTable } from "./AgTable/AgTable";
 import { useMaterialUIController } from "context";
 
-export const Table = ({ header, columnDefs, rowData, cellClickListener }) => {
+export const Table = ({
+    header,
+    columnDefs,
+    rowData,
+    cellClickListener,
+    selectedOfficeId,
+}) => {
     const [controller] = useMaterialUIController();
     const { sidenavColor: themeColor } = controller;
 
@@ -35,6 +41,7 @@ export const Table = ({ header, columnDefs, rowData, cellClickListener }) => {
                             }}
                         >
                             <AgTable
+                                selectedOfficeId={selectedOfficeId}
                                 columnDefs={columnDefs}
                                 rowData={rowData}
                                 cellClickListener={cellClickListener}

@@ -5,7 +5,12 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import "./styles.css";
 import { useMaterialUIController } from "context";
 
-export const AgTable = ({ columnDefs, rowData, cellClickListener }) => {
+export const AgTable = ({
+    columnDefs,
+    rowData,
+    cellClickListener,
+    selectedOfficeId,
+}) => {
     const [controller] = useMaterialUIController();
     const isDarkTheme = controller.darkMode;
 
@@ -30,7 +35,13 @@ export const AgTable = ({ columnDefs, rowData, cellClickListener }) => {
             }}
         >
             <AgGridReact
-                // noRowsOverlayComponent={(p) => <div></div>}
+                noRowsOverlayComponent={(p) => (
+                    <div>
+                        {selectedOfficeId
+                            ? "В офисе нет сотрудников"
+                            : "Офис не выбран, данных о сотруднике нет"}
+                    </div>
+                )}
                 rowData={rowData}
                 rowSelection="single"
                 onCellClicked={cellClickListener}
