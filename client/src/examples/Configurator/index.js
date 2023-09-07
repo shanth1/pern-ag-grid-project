@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 // @mui material components
 import Divider from "@mui/material/Divider";
 import Switch from "@mui/material/Switch";
@@ -25,6 +23,7 @@ import {
     setSidenavColor,
     setDarkMode,
 } from "context";
+import { useEffect, useState } from "react";
 
 function Configurator() {
     const [controller, dispatch] = useMaterialUIController();
@@ -131,11 +130,9 @@ function Configurator() {
                 px={3}
             >
                 <MDBox>
-                    <MDTypography variant="h5">
-                        Material UI Configurator
-                    </MDTypography>
+                    <MDTypography variant="h5">Кастомизация</MDTypography>
                     <MDTypography variant="body2" color="text">
-                        See our dashboard options.
+                        Настройте страницу под себя
                     </MDTypography>
                 </MDBox>
 
@@ -161,8 +158,7 @@ function Configurator() {
 
             <MDBox pt={0.5} pb={3} px={3}>
                 <MDBox>
-                    <MDTypography variant="h6">Sidenav Colors</MDTypography>
-
+                    <MDTypography variant="h6">Главный цвет</MDTypography>
                     <MDBox mb={0.5}>
                         {sidenavColors.map((color) => (
                             <IconButton
@@ -227,9 +223,9 @@ function Configurator() {
                 </MDBox>
 
                 <MDBox mt={3} lineHeight={1}>
-                    <MDTypography variant="h6">Sidenav Type</MDTypography>
+                    <MDTypography variant="h6">Цвет меню </MDTypography>
                     <MDTypography variant="button" color="text">
-                        Choose between different sidenav types.
+                        Выберите среди нескольких вариантов
                     </MDTypography>
 
                     <MDBox
@@ -243,7 +239,6 @@ function Configurator() {
                             color="dark"
                             variant="gradient"
                             onClick={handleDarkSidenav}
-                            disabled={disabled}
                             fullWidth
                             sx={
                                 !transparentSidenav && !whiteSidenav
@@ -251,29 +246,28 @@ function Configurator() {
                                     : sidenavTypeButtonsStyles
                             }
                         >
-                            Dark
+                            Темный
                         </MDButton>
                         <MDBox sx={{ mx: 1, width: "8rem", minWidth: "8rem" }}>
                             <MDButton
                                 color="dark"
                                 variant="gradient"
                                 onClick={handleTransparentSidenav}
-                                disabled={disabled}
                                 fullWidth
+                                disabled={disabled}
                                 sx={
                                     transparentSidenav && !whiteSidenav
                                         ? sidenavTypeActiveButtonStyles
                                         : sidenavTypeButtonsStyles
                                 }
                             >
-                                Transparent
+                                Прозрачный
                             </MDButton>
                         </MDBox>
                         <MDButton
                             color="dark"
                             variant="gradient"
                             onClick={handleWhiteSidenav}
-                            disabled={disabled}
                             fullWidth
                             sx={
                                 whiteSidenav && !transparentSidenav
@@ -281,7 +275,7 @@ function Configurator() {
                                     : sidenavTypeButtonsStyles
                             }
                         >
-                            White
+                            Белый
                         </MDButton>
                     </MDBox>
                 </MDBox>
@@ -292,7 +286,9 @@ function Configurator() {
                     mt={3}
                     lineHeight={1}
                 >
-                    <MDTypography variant="h6">Navbar Fixed</MDTypography>
+                    <MDTypography variant="h6">
+                        Фиксированный хедер
+                    </MDTypography>
 
                     <Switch
                         checked={fixedNavbar}
@@ -306,7 +302,9 @@ function Configurator() {
                     alignItems="center"
                     lineHeight={1}
                 >
-                    <MDTypography variant="h6">Light / Dark</MDTypography>
+                    <MDTypography variant="h6">
+                        Светлая / Темная тема
+                    </MDTypography>
 
                     <Switch checked={darkMode} onChange={handleDarkMode} />
                 </MDBox>
@@ -314,14 +312,14 @@ function Configurator() {
                 <MDBox mt={3} mb={2}>
                     <MDButton
                         component={Link}
-                        href="https://www.creative-tim.com/learning-lab/react/quick-start/material-dashboard/"
+                        href="https://github.com/shanth1/pern-ag-grid-project"
                         target="_blank"
                         rel="noreferrer"
-                        color={darkMode ? "light" : "dark"}
+                        color={darkMode ? "white" : "dark"}
                         variant="outlined"
                         fullWidth
                     >
-                        view documentation
+                        Документация
                     </MDButton>
                 </MDBox>
             </MDBox>

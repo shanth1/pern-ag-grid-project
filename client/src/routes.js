@@ -8,7 +8,7 @@ import Icon from "@mui/material/Icon";
 const routes = [
     {
         type: "collapse",
-        name: "Tables",
+        name: "Таблицы",
         key: "tables",
         icon: <Icon fontSize="small">tables</Icon>,
         route: "/tables",
@@ -16,7 +16,7 @@ const routes = [
     },
     {
         type: "collapse",
-        name: "Profile",
+        name: "Профиль",
         key: "profile",
         icon: <Icon fontSize="small">person</Icon>,
         route: "/profile",

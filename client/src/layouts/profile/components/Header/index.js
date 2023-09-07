@@ -11,10 +11,10 @@ import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 
 // Images
-import burceMars from "assets/images/bruce-mars.jpg";
+import profileAvatar from "assets/images/profileAvatar.jpg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
 
-function Header({ children }) {
+function Header({ children, themeColor }) {
     return (
         <MDBox position="relative">
             <MDBox
@@ -29,8 +29,8 @@ function Header({ children }) {
                         palette: { gradients },
                     }) =>
                         `${linearGradient(
-                            rgba(gradients.info.main, 0.6),
-                            rgba(gradients.info.state, 0.6),
+                            rgba(gradients[themeColor].main, 0.6),
+                            rgba(gradients[themeColor].state, 0.6),
                         )}, url(${backgroundImage})`,
                     backgroundSize: "cover",
                     backgroundPosition: "50%",
@@ -49,7 +49,7 @@ function Header({ children }) {
                 <Grid container spacing={3} alignItems="center">
                     <Grid item>
                         <MDAvatar
-                            src={burceMars}
+                            src={profileAvatar}
                             alt="profile-image"
                             size="xl"
                             shadow="sm"
@@ -58,14 +58,14 @@ function Header({ children }) {
                     <Grid item>
                         <MDBox height="100%" mt={0.5} lineHeight={1}>
                             <MDTypography variant="h5" fontWeight="medium">
-                                Richard Davis
+                                Береснев Денис
                             </MDTypography>
                             <MDTypography
                                 variant="button"
                                 color="text"
                                 fontWeight="regular"
                             >
-                                CEO / Co-Founder
+                                Fullstack-разработчик
                             </MDTypography>
                         </MDBox>
                     </Grid>

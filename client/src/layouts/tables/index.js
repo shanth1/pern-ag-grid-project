@@ -1,63 +1,98 @@
-// Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-
 // Material Dashboard 2 React example components
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import DashboardLayout from "examples/DashboardLayout";
+import DashboardNavbar from "examples/DashboardNavbar";
 
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
 import { getAllOffices } from "api/office";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+
+import { officeColumnDefs } from "./columnDefs/officeColumnDefs";
+import { employeeColumnDefs } from "./columnDefs/employeeColumnDefs";
+import { Table } from "./components/Table";
+import { EmployeeHeader } from "./components/EmployeeHeader";
+import { EmployeeForm } from "./components/EmployeeForm";
+import { BasicModal } from "./components/BasicModal";
+import { getAllEmployeesFromOffice } from "api/employee";
 
 function Tables() {
-    const [rowData, setRowData] = useState([]);
-    const columnDefs = [
-        { field: "country" },
-        { field: "city" },
-        {
-            field: "square",
-            comparator: (valueA, valueB) => valueA - valueB,
-        },
-        {
-            field: "squareRentPrice",
-            comparator: (valueA, valueB) => valueA - valueB,
-        },
-        { field: "openingDate" },
-        { field: "createdAt" },
-    ];
+    const [officeData, setOfficeData] = useState([]);
+    const [employeeData, setEmployeeData] = useState([]);
 
-    const defaultColDefs = useMemo(
-        () => ({ sortable: true, filter: true }),
-        [],
-    );
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState();
+    const [selectedOfficeId, setSelectedOfficeId] = useState();
 
-    const cellClickListener = (e) => {
-        console.log("click", e);
+    const officeCelListener = (e) => {
+        const officeId = e.data.id;
+        setSelectedOfficeId(officeId);
+        setSelectedEmployeeId();
+        getAllEmployeesFromOffice(officeId).then(({ data }) => {
+            setEmployeeData(data);
+        });
+    };
+
+    const employeeCelListener = (e) => {
+        const employeeId = e.data.id;
+        setSelectedEmployeeId(employeeId);
     };
 
     useEffect(() => {
         getAllOffices().then(({ data }) => {
-            setRowData(data);
+            setOfficeData(data);
         });
     }, []);
 
+    const [addModalActive, setAddModalActive] = useState(false);
+    const addHandleOpen = () => setAddModalActive(true);
+    const addHandleClose = () => setAddModalActive(false);
+
+    const [editModalActive, setEditModalActive] = useState(false);
+    const editHandleOpen = () => setEditModalActive(true);
+    const editHandleClose = () => setEditModalActive(false);
+
     return (
-        <DashboardLayout>
-            <DashboardNavbar />
-            <MDBox mb={3} />
-            <div className="ag-theme-alpine" style={{ height: 500 }}>
-                <AgGridReact
-                    rowData={rowData}
-                    rowSelection="single"
-                    onCellClicked={cellClickListener}
-                    columnDefs={columnDefs}
-                    defaultColDef={defaultColDefs}
-                    animateRows={true}
+        <>
+            <BasicModal active={addModalActive} handleClose={addHandleClose}>
+                <EmployeeForm
+                    handleClose={addHandleClose}
+                    officeId={selectedOfficeId}
+                    setEmployeeData={setEmployeeData}
                 />
-            </div>
-        </DashboardLayout>
+            </BasicModal>
+            <BasicModal active={editModalActive} handleClose={editHandleClose}>
+                <EmployeeForm
+                    employeeId={selectedEmployeeId}
+                    setEmployeeId={setSelectedEmployeeId}
+                    isEditForm
+                    handleClose={editHandleClose}
+                    officeId={selectedOfficeId}
+                    setEmployeeData={setEmployeeData}
+                />
+            </BasicModal>
+            <DashboardLayout>
+                <DashboardNavbar />
+                <Table
+                    header={"Офисы компании"}
+                    columnDefs={officeColumnDefs}
+                    rowData={officeData}
+                    cellClickListener={officeCelListener}
+                />
+                <Table
+                    header={
+                        <EmployeeHeader
+                            addHandleOpen={addHandleOpen}
+                            editHandleOpen={editHandleOpen}
+                            officeId={selectedOfficeId}
+                            setEmployeeData={setEmployeeData}
+                            employeeId={selectedEmployeeId}
+                            setEmployeeId={setSelectedEmployeeId}
+                        />
+                    }
+                    selectedOfficeId={selectedOfficeId}
+                    columnDefs={employeeColumnDefs}
+                    rowData={employeeData}
+                    cellClickListener={employeeCelListener}
+                />
+            </DashboardLayout>
+        </>
     );
 }
 
