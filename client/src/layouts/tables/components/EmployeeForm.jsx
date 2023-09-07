@@ -8,22 +8,22 @@ import { useEffect, useState } from "react";
 import { editEmployee } from "api/employee";
 import { getAllEmployeesFromOffice } from "api/employee";
 import { getEmployee } from "api/employee";
+import { checkRequiredFields } from "../utils/filedsChecking";
+import { isEqualObject } from "../utils/compareObjects";
+import { checkText } from "../validations/textValidation";
+import { checkSalary } from "../validations/salaryValidation";
+import { checkBirthday } from "../validations/birthdayValidation";
 
-const checkRequiredFields = (form) => {
-    for (let filed in form) {
-        if (!form[filed]) return false;
-    }
-    return true;
-};
-
-const isEqualObject = (obj1, obj2) => {
-    if (!obj1 || !obj2) return false;
-    for (var p in obj1) {
-        if (obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) return false;
-        if (obj1[p] !== obj2[p]) return false;
-    }
-    return true;
-};
+const positionItems = [
+    { id: 1, value: "director", label: "Директор" },
+    { id: 2, value: "projectManager", label: "Проджект-менеджер" },
+    { id: 3, value: "analytic", label: "Аналитик" },
+    { id: 4, value: "designer", label: "Дизайнер" },
+    { id: 5, value: "teamLeader", label: "Тимлид" },
+    { id: 6, value: "seniorDeveloper", label: "Сеньор-разработчик" },
+    { id: 7, value: "middleDeveloper", label: "Мидл-разработчик" },
+    { id: 8, value: "juniorDeveloper", label: "Джуниор-разработчик" },
+];
 
 export const EmployeeForm = ({
     officeId,
@@ -40,7 +40,6 @@ export const EmployeeForm = ({
     useEffect(() => {
         if (isEditForm) {
             getEmployee(employeeId).then(({ data }) => {
-                console.log(data);
                 setForm(data);
                 setOldForm(data);
             });
@@ -75,6 +74,7 @@ export const EmployeeForm = ({
         passport: "",
         officeId: officeId,
     });
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -89,13 +89,13 @@ export const EmployeeForm = ({
             </Grid>
             <Grid item xs={6}>
                 <TextField
+                    fullWidth
                     required
+                    label="Имя"
                     value={form.firstName}
-                    inputProps={{ maxLength: 20 }}
                     onChange={(e) => {
                         const input = e.target.value;
-                        if (!/^[A-Za-zА-Яа-я]+$/.test(input) && input !== "")
-                            return;
+                        if (!checkText(input)) return;
                         let formatted =
                             input &&
                             input.slice(0, 1).toUpperCase() +
@@ -103,39 +103,37 @@ export const EmployeeForm = ({
 
                         setForm({ ...form, firstName: formatted });
                     }}
-                    fullWidth
-                    label="Имя"
+                    inputProps={{ maxLength: 20 }}
                 />
             </Grid>
             <Grid item xs={6}>
                 <TextField
+                    fullWidth
                     required
-                    inputProps={{ maxLength: 30 }}
+                    label="Фамилия"
                     value={form.lastName}
                     onChange={(e) => {
                         const input = e.target.value;
-                        if (!/^[A-Za-zА-Яа-я]+$/.test(input) && input !== "")
-                            return;
+                        if (!checkText(input)) return;
                         let formatted =
                             input &&
                             input.slice(0, 1).toUpperCase() +
                                 input.slice(1).toLowerCase();
                         setForm({ ...form, lastName: formatted });
                     }}
-                    fullWidth
-                    label="Фамилия"
+                    inputProps={{ maxLength: 30 }}
                 />
             </Grid>
             <Grid item xs={6}>
                 <TextField
-                    required
                     fullWidth
+                    required
                     select
+                    label="Пол"
                     value={form.gender}
                     onChange={(e) =>
                         setForm({ ...form, gender: e.target.value })
                     }
-                    label="Пол"
                     InputProps={{
                         sx: {
                             padding: "12px",
@@ -162,20 +160,20 @@ export const EmployeeForm = ({
             </Grid>
             <Grid item xs={6}>
                 <TextField
+                    fullWidth
+                    required
+                    label="Паспорт"
                     error={
                         form.passport.length !== 10 &&
                         form.passport.length !== 0
                     }
-                    required
-                    inputProps={{ maxLength: 10 }}
                     value={form.passport}
                     onChange={(e) => {
                         const input = e.target.value;
                         if (!/^\d+$/.test(input) && input !== "") return;
                         setForm({ ...form, passport: input });
                     }}
-                    fullWidth
-                    label="Паспорт"
+                    inputProps={{ maxLength: 10 }}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -185,24 +183,22 @@ export const EmployeeForm = ({
             </Grid>
             <Grid item xs={6}>
                 <TextField
-                    required
-                    inputProps={{ min: 40000, max: 300000, step: 5000 }}
                     fullWidth
+                    required
+                    label="Зарплата"
+                    inputProps={{ min: 40000, max: 300000, step: 5000 }}
                     value={form.salary}
                     onChange={(e) => {
                         const input = e.target.value;
-                        if (Number(input) <= 0 && input !== "") return;
-                        if (Number(input) >= 1000000) return;
-                        if (!/^\d+$/.test(input) && input !== "") return;
+                        if (!checkSalary(input)) return;
                         setForm({ ...form, salary: input });
                     }}
-                    label="Зарплата"
                 />
             </Grid>
             <Grid item xs={6}>
                 <TextField
-                    required
                     fullWidth
+                    required
                     select
                     label="Должность"
                     value={form.position}
@@ -215,39 +211,26 @@ export const EmployeeForm = ({
                         },
                     }}
                 >
-                    <MenuItem value="director">Директор</MenuItem>
-                    <MenuItem value="projectManager">
-                        Проджект-менеджер
-                    </MenuItem>
-                    <MenuItem value="analytic">Аналитик</MenuItem>
-                    <MenuItem value="designer">Дизайнер</MenuItem>
-                    <MenuItem value="teamLeader">Тимлид</MenuItem>
-                    <MenuItem value="seniorDeveloper">
-                        Сеньор-разработчик
-                    </MenuItem>
-                    <MenuItem value="middleDeveloper">
-                        Мидл-разработчик
-                    </MenuItem>
-                    <MenuItem value="juniorDeveloper">
-                        Джуниор-разработчик
-                    </MenuItem>
+                    {positionItems.map((el) => (
+                        <MenuItem key={el.id} value={el.value}>
+                            {el.label}
+                        </MenuItem>
+                    ))}
                 </TextField>
             </Grid>
             <Grid item xs={12}>
                 <MDButton
+                    fullWidth
+                    size="large"
+                    variant="gradient"
+                    color={themeColor}
+                    onClick={formHandler}
                     disabled={
                         !checkRequiredFields(form) ||
                         form.passport.length !== 10 ||
-                        form.birthday.includes("NaN") ||
-                        Number(form.birthday.split("-")[0]) < 1900 ||
-                        Number(form.birthday.split("-")[0]) > 2100 ||
+                        !checkBirthday(form.birthday) ||
                         isEqualObject(form, oldForm)
                     }
-                    onClick={formHandler}
-                    color={themeColor}
-                    variant="gradient"
-                    size="large"
-                    fullWidth
                 >
                     {isEditForm ? "Изменить" : "Добавить"}
                 </MDButton>

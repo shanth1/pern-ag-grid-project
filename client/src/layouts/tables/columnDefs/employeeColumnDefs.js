@@ -38,7 +38,7 @@ export const employeeColumnDefs = [
                 columnGroupShow: "closed",
             },
             {
-                headerName: "День рождения",
+                headerName: "Дата рождения",
                 field: "birthday",
                 flex: 1,
                 width: 150,
