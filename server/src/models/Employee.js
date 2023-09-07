@@ -25,7 +25,7 @@ const Employee = sequelize.define(
                 "juniorDeveloper",
             ),
         },
-        salary: { type: DataTypes.DECIMAL(20, 2) },
+        salary: { type: DataTypes.DECIMAL(20) },
         passport: { type: DataTypes.DECIMAL(10) },
     },
     {
