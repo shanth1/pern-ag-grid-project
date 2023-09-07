@@ -27,6 +27,7 @@ export const Table = ({ header, columnDefs, rowData, cellClickListener }) => {
                                 {header}
                             </MDTypography>
                         </MDBox>
+
                         <MDBox
                             borderRadius="lg"
                             sx={{

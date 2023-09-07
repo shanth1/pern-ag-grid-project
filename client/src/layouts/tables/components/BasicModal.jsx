@@ -21,7 +21,6 @@ export const BasicModal = ({ children, active, handleClose }) => {
         },
     };
     const { dark: darkColors, white: whiteColors } = colors;
-    console.log(colors);
     return (
         <Modal
             open={active}

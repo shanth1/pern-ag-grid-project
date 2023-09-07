@@ -4,7 +4,6 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 import { getAllOffices } from "api/office";
 import { useEffect, useState } from "react";
-import { getEmployeeFromOffice } from "api/employee";
 
 import { officeColumnDefs } from "./columnDefs/officeColumnDefs";
 import { employeeColumnDefs } from "./columnDefs/employeeColumnDefs";
@@ -12,6 +11,7 @@ import { Table } from "./components/Table";
 import { EmployeeHeader } from "./components/EmployeeHeader";
 import { EmployeeForm } from "./components/EmployeeForm";
 import { BasicModal } from "./components/BasicModal";
+import { getAllEmployeesFromOffice } from "api/employee";
 
 function Tables() {
     const [officeData, setOfficeData] = useState([]);
@@ -24,7 +24,7 @@ function Tables() {
         const officeId = e.data.id;
         setSelectedOfficeId(officeId);
         setSelectedEmployeeId();
-        getEmployeeFromOffice(officeId).then(({ data }) => {
+        getAllEmployeesFromOffice(officeId).then(({ data }) => {
             setEmployeeData(data);
         });
     };
@@ -44,33 +44,54 @@ function Tables() {
     const addHandleOpen = () => setAddModalActive(true);
     const addHandleClose = () => setAddModalActive(false);
 
+    const [editModalActive, setEditModalActive] = useState(false);
+    const editHandleOpen = () => setEditModalActive(true);
+    const editHandleClose = () => setEditModalActive(false);
+
     return (
-        <DashboardLayout>
-            <DashboardNavbar />
+        <>
             <BasicModal active={addModalActive} handleClose={addHandleClose}>
-                <EmployeeForm addHandleClose={addHandleClose} />
+                <EmployeeForm
+                    handleClose={addHandleClose}
+                    officeId={selectedOfficeId}
+                    setEmployeeData={setEmployeeData}
+                />
             </BasicModal>
-            <Table
-                header={"Офисы компании"}
-                columnDefs={officeColumnDefs}
-                rowData={officeData}
-                cellClickListener={officeCelListener}
-            />
-            <Table
-                header={
-                    <EmployeeHeader
-                        addHandleOpen={addHandleOpen}
-                        officeId={selectedOfficeId}
-                        setEmployeeData={setEmployeeData}
-                        employeeId={selectedEmployeeId}
-                        setEmployeeId={setSelectedEmployeeId}
-                    />
-                }
-                columnDefs={employeeColumnDefs}
-                rowData={employeeData}
-                cellClickListener={employeeCelListener}
-            />
-        </DashboardLayout>
+            <BasicModal active={editModalActive} handleClose={editHandleClose}>
+                <EmployeeForm
+                    employeeId={selectedEmployeeId}
+                    setEmployeeId={setSelectedEmployeeId}
+                    isEditForm
+                    handleClose={editHandleClose}
+                    officeId={selectedOfficeId}
+                    setEmployeeData={setEmployeeData}
+                />
+            </BasicModal>
+            <DashboardLayout>
+                <DashboardNavbar />
+                <Table
+                    header={"Офисы компании"}
+                    columnDefs={officeColumnDefs}
+                    rowData={officeData}
+                    cellClickListener={officeCelListener}
+                />
+                <Table
+                    header={
+                        <EmployeeHeader
+                            addHandleOpen={addHandleOpen}
+                            editHandleOpen={editHandleOpen}
+                            officeId={selectedOfficeId}
+                            setEmployeeData={setEmployeeData}
+                            employeeId={selectedEmployeeId}
+                            setEmployeeId={setSelectedEmployeeId}
+                        />
+                    }
+                    columnDefs={employeeColumnDefs}
+                    rowData={employeeData}
+                    cellClickListener={employeeCelListener}
+                />
+            </DashboardLayout>
+        </>
     );
 }
 

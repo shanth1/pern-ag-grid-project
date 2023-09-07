@@ -26,7 +26,7 @@ export const AgTable = ({ columnDefs, rowData, cellClickListener }) => {
         <div
             className={isDarkTheme ? "ag-theme-alpine-dark" : "ag-theme-alpine"}
             style={{
-                height: 500,
+                height: 300,
             }}
         >
             <AgGridReact
