@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useEffect } from "react";
 
 // react-router-dom components
@@ -37,17 +22,17 @@ import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
-import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
+
+import { GitHub } from "@mui/icons-material";
 
 // Material Dashboard 2 React context
 import {
     useMaterialUIController,
     setMiniSidenav,
     setTransparentSidenav,
-    setWhiteSidenav,
 } from "context";
 
-function Sidenav({ color, brand, brandName, routes, ...rest }) {
+function Sidenav({ color, brandName, routes, ...rest }) {
     const [controller, dispatch] = useMaterialUIController();
     const {
         miniSidenav,
@@ -66,7 +51,15 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     } else if (whiteSidenav && darkMode) {
         textColor = "inherit";
     }
-
+    const getIconColor = () => {
+        if (transparentSidenav) {
+            if (darkMode) return "white";
+            return "dark";
+        } else if (whiteSidenav) {
+            return "dark";
+        }
+        return "white";
+    };
     const closeSidenav = () => setMiniSidenav(dispatch, true);
 
     useEffect(() => {
@@ -76,10 +69,6 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             setTransparentSidenav(
                 dispatch,
                 window.innerWidth < 1200 ? false : transparentSidenav,
-            );
-            setWhiteSidenav(
-                dispatch,
-                window.innerWidth < 1200 ? false : whiteSidenav,
             );
         }
 
@@ -171,7 +160,15 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
                 darkMode,
             }}
         >
-            <MDBox pt={3} pb={1} px={4} textAlign="center">
+            <MDBox
+                component="a"
+                target="_blank"
+                rel="noreferrer"
+                pt={3}
+                pb={1}
+                px={4}
+                textAlign="center"
+            >
                 <MDBox
                     display={{ xs: "block", xl: "none" }}
                     position="absolute"
@@ -186,22 +183,19 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
                     </MDTypography>
                 </MDBox>
                 <MDBox
-                    component={NavLink}
-                    to="/"
+                    component="a"
+                    href={"https://github.com/shanth1"}
+                    target="_blank"
+                    color="info"
+                    rel="noreferrer"
                     display="flex"
                     alignItems="center"
+                    gap={0.5}
                 >
-                    {brand && (
-                        <MDBox
-                            component="img"
-                            src={brand}
-                            alt="Brand"
-                            width="2rem"
-                        />
-                    )}
+                    <GitHub color={getIconColor()} />
                     <MDBox
-                        width={!brandName && "100%"}
-                        sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
+                    // width={!brandName && "100%"}
+                    // sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
                     >
                         <MDTypography
                             component="h6"
@@ -224,14 +218,14 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             <MDBox p={2} mt="auto">
                 <MDButton
                     component="a"
-                    href="https://www.creative-tim.com/product/material-dashboard-pro-react"
+                    href="https://telegram.me/andabura"
                     target="_blank"
                     rel="noreferrer"
                     variant="gradient"
                     color={sidenavColor}
                     fullWidth
                 >
-                    upgrade to pro
+                    Telegram
                 </MDButton>
             </MDBox>
         </SidenavRoot>

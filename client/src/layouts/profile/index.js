@@ -2,42 +2,54 @@
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 
-// @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
-
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import DashboardLayout from "examples/DashboardLayout";
+import DashboardNavbar from "examples/DashboardNavbar";
 import ProfileInfoCard from "examples/Cards/ProfileInfoCard";
-import ProfilesList from "examples/Lists/ProfilesList";
+import StackList from "examples/Lists/StackList";
 import DefaultProjectCard from "examples/Cards/DefaultProjectCard";
 
 // Overview page components
 import Header from "layouts/profile/components/Header";
 
 // Data
-import profilesListData from "layouts/profile/data/profilesListData";
+import stackListData from "layouts/profile/data/stackListData";
 
 // Images
-import homeDecor1 from "assets/images/home-decor-1.jpg";
-import homeDecor2 from "assets/images/home-decor-2.jpg";
-import team1 from "assets/images/team-1.jpg";
-import team2 from "assets/images/team-2.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
+import quoteIt from "assets/images/quoteIt.png";
+import chessAi from "assets/images/chessai.jpg";
+
+import docker from "assets/icons/docker.svg";
+import express from "assets/icons/express.svg";
+import graphql from "assets/icons/graphql.svg";
+import jwt from "assets/icons/jwt.svg";
+import mongo from "assets/icons/mongo.svg";
+import nginx from "assets/icons/nginx.svg";
+import react from "assets/icons/react.svg";
+import tailwind from "assets/icons/tailwind.svg";
+import typescript from "assets/icons/typescript.svg";
+import redux from "assets/icons/redux.svg";
+
+import { GitHub, Mail, Telegram } from "@mui/icons-material";
+import { useMaterialUIController } from "context";
 
 function Overview() {
+    const [controller] = useMaterialUIController();
+    const { sidenavColor, darkMode } = controller;
+
+    const themeColor =
+        darkMode && sidenavColor === "dark" ? "white" : sidenavColor;
+    const iconColor = darkMode ? "white" : "dark";
+
     return (
         <DashboardLayout>
             <DashboardNavbar />
             <MDBox mb={2} />
-            <Header>
+            <Header themeColor={sidenavColor}>
                 <MDBox mt={5} mb={3}>
                     <Grid container spacing={1}>
                         <Grid
@@ -52,40 +64,53 @@ function Overview() {
                                 sx={{ ml: -2, mr: 1 }}
                             />
                             <ProfileInfoCard
-                                title="profile information"
-                                description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
-                                info={{
-                                    fullName: "Alec M. Thompson",
-                                    mobile: "(44) 123 1234 123",
-                                    email: "alecthompson@mail.com",
-                                    location: "USA",
-                                }}
-                                social={[
+                                title="О себе"
+                                description="Я разработчик веб-приложений на JavaScript и Typescript, преимущественно с помощью библиотеки React. Также последнее время фокусируюсь на работе с бэкенд (NodeJS, Express) и деплое. У меня есть опыт работы с реляционными и нереляционными базами данных. Все версии проектов контролирую с помощью git. Также регулярно отрабатываю hard skills на сервисах codewars и leetcode"
+                                info={[
                                     {
-                                        link: "https://www.facebook.com/CreativeTim/",
-                                        icon: <FacebookIcon />,
-                                        color: "facebook",
+                                        label: "Дата рождения",
+                                        value: "17.11.2000",
                                     },
                                     {
-                                        link: "https://twitter.com/creativetim",
-                                        icon: <TwitterIcon />,
-                                        color: "twitter",
+                                        label: "Место проживания",
+                                        value: "Россия, Москва",
                                     },
                                     {
-                                        link: "https://www.instagram.com/creativetimofficial/",
-                                        icon: <InstagramIcon />,
-                                        color: "instagram",
+                                        label: "Телефон",
+                                        value: "+7 904 848-35-02",
+                                    },
+                                    {
+                                        label: "Email",
+                                        value: "denisberesnev59@gmail.com",
+                                    },
+                                    {
+                                        label: "GitHub",
+                                        value: "shanth1",
                                     },
                                 ]}
-                                action={{ route: "", tooltip: "Edit Profile" }}
+                                social={[
+                                    {
+                                        link: "https://github.com/shanth1",
+                                        icon: <GitHub color={iconColor} />,
+                                    },
+                                    {
+                                        link: "https://telegram.me/andabura",
+                                        icon: <Telegram color={iconColor} />,
+                                    },
+                                    {
+                                        link: "mailto:denisberesnev59@gmail.com",
+                                        icon: <Mail color={iconColor} />,
+                                    },
+                                ]}
                                 shadow={false}
                             />
                             <Divider orientation="vertical" sx={{ mx: 0 }} />
                         </Grid>
                         <Grid item xs={12} md={6} xl={4}>
-                            <ProfilesList
-                                title="conversations"
-                                profiles={profilesListData}
+                            <StackList
+                                title="Cтек технологий"
+                                stack={stackListData}
+                                color={themeColor}
                                 shadow={false}
                             />
                         </Grid>
@@ -93,53 +118,54 @@ function Overview() {
                 </MDBox>
                 <MDBox pt={2} px={2} lineHeight={1.25}>
                     <MDTypography variant="h6" fontWeight="medium">
-                        Projects
+                        Проекты
                     </MDTypography>
                     <MDBox mb={1}>
                         <MDTypography variant="button" color="text">
-                            Architects design houses
+                            Сайты, разработанные мной
                         </MDTypography>
                     </MDBox>
                 </MDBox>
                 <MDBox p={2}>
                     <Grid container spacing={6}>
-                        <Grid item xs={12} md={6} xl={3}>
+                        <Grid item xs={12} md={6}>
                             <DefaultProjectCard
-                                image={homeDecor1}
-                                label="project #2"
-                                title="modern"
-                                description="As Uber works through a huge amount of internal management turmoil."
+                                image={quoteIt}
+                                title="QuoteIt"
+                                description="Реализация всех этапов разработки многостраничного сайта с авторизацией и CRUD операциями по сохранению цитат и заметок"
                                 action={{
-                                    type: "internal",
-                                    route: "/pages/profile/profile-overview",
-                                    color: "info",
-                                    label: "view project",
+                                    type: "external",
+                                    route: "https://www.quote-it.ru",
+                                    color: themeColor,
+                                    label: "Посмотреть",
                                 }}
-                                authors={[
-                                    { image: team1, name: "Elena Morison" },
-                                    { image: team2, name: "Ryan Milly" },
-                                    { image: team3, name: "Nick Daniel" },
-                                    { image: team4, name: "Peterson" },
+                                stack={[
+                                    { image: react, name: "React" },
+                                    { image: graphql, name: "GraphQL" },
+                                    { image: jwt, name: "JWT" },
+                                    { image: express, name: "Express" },
+                                    { image: tailwind, name: "Tailwind" },
+                                    { image: mongo, name: "MongoDB" },
+                                    { image: nginx, name: "NGINX" },
+                                    { image: docker, name: "Docker" },
                                 ]}
                             />
                         </Grid>
-                        <Grid item xs={12} md={6} xl={3}>
+                        <Grid item xs={12} md={6}>
                             <DefaultProjectCard
-                                image={homeDecor2}
-                                label="project #1"
-                                title="scandinavian"
-                                description="Music is something that everyone has their own specific opinion about."
+                                image={chessAi}
+                                title="ChessAI"
+                                description="Обучающая платформа с шахматным-ботом. Вычисления производятся на клиенте и базируются на представлении шахматной доски и алгоритмах оценки"
                                 action={{
-                                    type: "internal",
-                                    route: "/pages/profile/profile-overview",
-                                    color: "info",
-                                    label: "view project",
+                                    type: "external",
+                                    route: "https://shanth1.github.io/chess-ai-dist/",
+                                    color: themeColor,
+                                    label: "Посмотреть",
                                 }}
-                                authors={[
-                                    { image: team3, name: "Nick Daniel" },
-                                    { image: team4, name: "Peterson" },
-                                    { image: team1, name: "Elena Morison" },
-                                    { image: team2, name: "Ryan Milly" },
+                                stack={[
+                                    { image: typescript, name: "TypeScript" },
+                                    { image: react, name: "React" },
+                                    { image: redux, name: "Redux" },
                                 ]}
                             />
                         </Grid>
