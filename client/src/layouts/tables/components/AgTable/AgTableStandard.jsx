@@ -5,11 +5,12 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import "./styles.css";
 import { useMaterialUIController } from "context";
 
-export const AgTable = ({
+export const AgTableStandard = ({
     columnDefs,
     rowData,
     cellClickListener,
     selectedOfficeId,
+    noRowsOverlayComponent,
 }) => {
     const [controller] = useMaterialUIController();
     const isDarkTheme = controller.darkMode;

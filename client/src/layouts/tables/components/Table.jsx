@@ -1,8 +1,9 @@
 import { Card, Grid } from "@mui/material";
 import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
-import { AgTable } from "./AgTable/AgTable";
+import { AgTableInfinite } from "./AgTable/AgTableInfinite";
 import { useMaterialUIController } from "context";
+import { AgTableStandard } from "./AgTable/AgTableStandard";
 
 export const Table = ({
     header,
@@ -10,6 +11,7 @@ export const Table = ({
     rowData,
     cellClickListener,
     selectedOfficeId,
+    isInfinite,
 }) => {
     const [controller] = useMaterialUIController();
     const { sidenavColor: themeColor } = controller;
@@ -40,12 +42,19 @@ export const Table = ({
                                 overflow: "hidden",
                             }}
                         >
-                            <AgTable
-                                selectedOfficeId={selectedOfficeId}
-                                columnDefs={columnDefs}
-                                rowData={rowData}
-                                cellClickListener={cellClickListener}
-                            />
+                            {isInfinite ? (
+                                <AgTableInfinite
+                                    columnDefs={columnDefs}
+                                    cellClickListener={cellClickListener}
+                                />
+                            ) : (
+                                <AgTableStandard
+                                    selectedOfficeId={selectedOfficeId}
+                                    columnDefs={columnDefs}
+                                    rowData={rowData}
+                                    cellClickListener={cellClickListener}
+                                />
+                            )}
                         </MDBox>
                     </Card>
                 </Grid>

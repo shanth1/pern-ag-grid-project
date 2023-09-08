@@ -2,8 +2,7 @@
 import DashboardLayout from "examples/DashboardLayout";
 import DashboardNavbar from "examples/DashboardNavbar";
 
-import { getAllOffices } from "api/office";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { officeColumnDefs } from "./columnDefs/officeColumnDefs";
 import { employeeColumnDefs } from "./columnDefs/employeeColumnDefs";
@@ -14,7 +13,6 @@ import { BasicModal } from "./components/BasicModal";
 import { getAllEmployeesFromOffice } from "api/employee";
 
 function Tables() {
-    const [officeData, setOfficeData] = useState([]);
     const [employeeData, setEmployeeData] = useState([]);
 
     const [selectedEmployeeId, setSelectedEmployeeId] = useState();
@@ -33,12 +31,6 @@ function Tables() {
         const employeeId = e.data.id;
         setSelectedEmployeeId(employeeId);
     };
-
-    useEffect(() => {
-        getAllOffices().then(({ data }) => {
-            setOfficeData(data);
-        });
-    }, []);
 
     const [addModalActive, setAddModalActive] = useState(false);
     const addHandleOpen = () => setAddModalActive(true);
@@ -70,9 +62,9 @@ function Tables() {
             <DashboardLayout>
                 <DashboardNavbar />
                 <Table
+                    isInfinite
                     header={"Офисы компании"}
                     columnDefs={officeColumnDefs}
-                    rowData={officeData}
                     cellClickListener={officeCelListener}
                 />
                 <Table
