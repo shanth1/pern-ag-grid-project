@@ -1,4 +1,3 @@
-import { dateComparator } from "../utils/dateComparator";
 import { AreaRender } from "./components/AreaRender";
 import { DateRender } from "./components/DateRender";
 import { MoneyRender } from "./components/MoneyRender";
@@ -14,6 +13,11 @@ export const officeColumnDefs = [
                 minWidth: 100,
                 field: "country",
                 filter: "agTextColumnFilter",
+                filterParams: {
+                    buttons: ["apply", "clear"],
+                    filterOptions: ["contains"],
+                    maxNumConditions: 1,
+                },
             },
             {
                 headerName: "Город",
@@ -21,6 +25,12 @@ export const officeColumnDefs = [
                 minWidth: 150,
                 field: "city",
                 columnGroupShow: "closed",
+                filter: "agTextColumnFilter",
+                filterParams: {
+                    buttons: ["apply", "clear"],
+                    filterOptions: ["contains"],
+                    maxNumConditions: 1,
+                },
             },
         ],
     },
@@ -34,6 +44,15 @@ export const officeColumnDefs = [
                 width: 150,
                 minWidth: 90,
                 filter: "agNumberColumnFilter",
+                filterParams: {
+                    buttons: ["apply", "clear"],
+                    filterOptions: [
+                        "equals",
+                        "greaterThanOrEqual",
+                        "lessThanOrEqual",
+                    ],
+                    maxNumConditions: 1,
+                },
                 comparator: (valueA, valueB) => valueA - valueB,
                 cellRenderer: AreaRender,
             },
@@ -43,7 +62,15 @@ export const officeColumnDefs = [
                 minWidth: 110,
                 field: "squareRentPrice",
                 filter: "agNumberColumnFilter",
-                comparator: (valueA, valueB) => valueA - valueB,
+                filterParams: {
+                    buttons: ["apply", "clear"],
+                    filterOptions: [
+                        "equals",
+                        "greaterThanOrEqual",
+                        "lessThanOrEqual",
+                    ],
+                    maxNumConditions: 1,
+                },
                 cellRenderer: MoneyRender,
                 columnGroupShow: "closed",
             },
@@ -58,10 +85,16 @@ export const officeColumnDefs = [
                 minWidth: 110,
                 field: "openingDate",
                 filter: "agDateColumnFilter",
-                cellRenderer: DateRender,
                 filterParams: {
-                    comparator: dateComparator,
+                    buttons: ["apply", "clear"],
+                    filterOptions: [
+                        "equals",
+                        "greaterThanOrEqual",
+                        "lessThanOrEqual",
+                    ],
+                    maxNumConditions: 1,
                 },
+                cellRenderer: DateRender,
             },
             {
                 headerName: "Запись создана",
@@ -69,10 +102,16 @@ export const officeColumnDefs = [
                 width: 150,
                 minWidth: 110,
                 field: "createdAt",
-                filter: "agDateColumnFilter",
                 cellRenderer: DateRender,
+                filter: "agDateColumnFilter",
                 filterParams: {
-                    comparator: dateComparator,
+                    buttons: ["apply", "clear"],
+                    filterOptions: [
+                        "equals",
+                        "greaterThanOrEqual",
+                        "lessThanOrEqual",
+                    ],
+                    maxNumConditions: 1,
                 },
             },
         ],
