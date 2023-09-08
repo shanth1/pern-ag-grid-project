@@ -39,27 +39,37 @@ export const EmployeeForm = ({
 
     useEffect(() => {
         if (isEditForm) {
-            getEmployee(employeeId).then(({ data }) => {
-                setForm(data);
-                setOldForm(data);
-            });
+            getEmployee(employeeId)
+                .then(({ data }) => {
+                    setForm(data);
+                    setOldForm(data);
+                })
+                .catch((error) => console.error(error));
         }
     }, [isEditForm, employeeId]);
 
     const formHandler = () => {
         if (isEditForm) {
             setEmployeeId();
-            editEmployee(employeeId, form).then(() => {
-                getAllEmployeesFromOffice(officeId).then(({ data }) => {
-                    setEmployeeData(data);
-                });
-            });
+            editEmployee(employeeId, form)
+                .then(() => {
+                    getAllEmployeesFromOffice(officeId)
+                        .then(({ data }) => {
+                            setEmployeeData(data);
+                        })
+                        .catch((error) => console.error(error));
+                })
+                .catch((error) => console.error(error));
         } else {
-            addEmployee(form).then(() => {
-                getAllEmployeesFromOffice(officeId).then(({ data }) => {
-                    setEmployeeData(data);
-                });
-            });
+            addEmployee(form)
+                .then(() => {
+                    getAllEmployeesFromOffice(officeId)
+                        .then(({ data }) => {
+                            setEmployeeData(data);
+                        })
+                        .catch((error) => console.error(error));
+                })
+                .catch((error) => console.error(error));
         }
         handleClose();
     };

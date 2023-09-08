@@ -1,4 +1,5 @@
 export const PositionRender = ({ value }) => {
+    if (!value) return <></>;
     let position = "";
     switch (value) {
         case "director":
