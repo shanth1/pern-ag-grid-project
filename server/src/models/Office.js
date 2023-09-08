@@ -9,7 +9,8 @@ const Office = sequelize.define(
         city: { type: DataTypes.STRING },
         square: { type: DataTypes.DECIMAL(20, 2) },
         squareRentPrice: { type: DataTypes.DECIMAL(20, 2) },
-        openingDate: { type: DataTypes.DATE },
+        openingDate: { type: DataTypes.DATEONLY },
+        createdAt: { type: DataTypes.DATEONLY },
     },
     {
         freezeTableName: true,
