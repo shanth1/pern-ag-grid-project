@@ -17,11 +17,15 @@ export const EmployeeHeader = ({
 
     const deleteHandler = () => {
         setEmployeeId();
-        deleteEmployee(employeeId).then(() => {
-            getAllEmployeesFromOffice(officeId).then(({ data }) => {
-                setEmployeeData(data);
-            });
-        });
+        deleteEmployee(employeeId)
+            .then(() => {
+                getAllEmployeesFromOffice(officeId)
+                    .then(({ data }) => {
+                        setEmployeeData(data);
+                    })
+                    .catch((error) => console.error(error));
+            })
+            .catch((error) => console.error(error));
     };
 
     return (

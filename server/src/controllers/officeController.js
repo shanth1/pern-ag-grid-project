@@ -30,10 +30,12 @@ class OfficeController {
                     type: QueryTypes.SELECT,
                 },
             );
-            res.json({ offices, length: Number(lengthResponse[0].count) });
+            return res.json({
+                offices,
+                length: Number(lengthResponse[0].count),
+            });
         } catch (error) {
-            console.log(error);
-            res.status(500).send(error.message);
+            return res.status(500).send(error.message);
         }
     }
 }
