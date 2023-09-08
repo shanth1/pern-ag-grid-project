@@ -1,0 +1,49 @@
+version: '3'
+
+networks:
+  network:
+    driver: bridge
+
+services:
+  client:
+    image: shanth1/client
+    depends_on:
+      - backend
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 127.0.0.1:3000:3000
+    networks:
+      - network
+  backend:
+    image: shanth1/server
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - database
+    environment:
+      DB: "company"
+      USER: "user"
+      PASSWORD: "root"
+      DB_HOST: "postgres_db"
+      DB_PORT: 5432
+    ports:
+      - 127.0.0.1:4000:4000
+    networks:
+      - network
+  database:
+    image: postgres:14.3
+    container_name: "postgres_db"
+    environment:
+      POSTGRES_DB: "company"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "root"
+    ports:
+      - "5432"
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    networks:
+      - network
