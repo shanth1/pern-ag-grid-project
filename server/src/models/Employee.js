@@ -12,7 +12,7 @@ const Employee = sequelize.define(
         firstName: { type: DataTypes.STRING },
         lastName: { type: DataTypes.STRING },
         gender: { type: DataTypes.ENUM("male", "female") },
-        birthday: { type: DataTypes.DATE },
+        birthday: { type: DataTypes.DATEONLY },
         position: {
             type: DataTypes.ENUM(
                 "director",
@@ -27,6 +27,7 @@ const Employee = sequelize.define(
         },
         salary: { type: DataTypes.DECIMAL(20) },
         passport: { type: DataTypes.DECIMAL(10) },
+        createdAt: { type: DataTypes.DATEONLY },
     },
     {
         freezeTableName: true,

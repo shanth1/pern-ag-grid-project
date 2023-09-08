@@ -16,6 +16,7 @@ export const employeeColumnDefs = [
                 width: 140,
                 minWidth: 100,
                 filter: "agTextColumnFilter",
+                checkboxSelection: true,
             },
             {
                 headerName: "Имя",
