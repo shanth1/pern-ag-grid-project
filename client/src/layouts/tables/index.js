@@ -19,16 +19,18 @@ function Tables() {
     const [selectedOfficeId, setSelectedOfficeId] = useState();
 
     const officeCelListener = (e) => {
-        const officeId = e.data.id;
+        const officeId = e?.data?.id;
         setSelectedOfficeId(officeId);
         setSelectedEmployeeId();
-        getAllEmployeesFromOffice(officeId).then(({ data }) => {
-            setEmployeeData(data);
-        });
+        getAllEmployeesFromOffice(officeId)
+            .then(({ data }) => {
+                setEmployeeData(data);
+            })
+            .catch((error) => console.error(error));
     };
 
     const employeeCelListener = (e) => {
-        const employeeId = e.data.id;
+        const employeeId = e?.data?.id;
         setSelectedEmployeeId(employeeId);
     };
 

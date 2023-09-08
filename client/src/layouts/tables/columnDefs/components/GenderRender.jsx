@@ -1,4 +1,5 @@
 export const GenderRender = ({ value }) => {
+    if (!value) return <></>;
     let gender = "";
     switch (value) {
         case "male":

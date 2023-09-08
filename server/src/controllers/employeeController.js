@@ -26,12 +26,10 @@ class EmployeeController {
         const { officeId } = req.params;
         try {
             const office = await Office.findOne({
-                where: { id: employee.officeId },
+                where: { id: officeId },
             });
             if (!office)
-                return res
-                    .status(400)
-                    .send(`No office with id ${employee.officeId}`);
+                return res.status(400).send(`No office with id ${officeId}`);
         } catch (error) {
             return res.status(500).send(error.message);
         }

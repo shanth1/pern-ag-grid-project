@@ -1,5 +1,6 @@
 const sequelize = require("../config/db");
 const { QueryTypes } = require("sequelize");
+const { getFilterString } = require("../utils/filter");
 
 class OfficeController {
     async getAll(req, res) {
