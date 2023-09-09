@@ -1,6 +1,7 @@
 // Material Dashboard 2 React layouts
 import Tables from "layouts/tables";
 import Profile from "layouts/profile";
+import Checklist from "layouts/checklist";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -21,6 +22,14 @@ const routes = [
         icon: <Icon fontSize="small">person</Icon>,
         route: "/profile",
         component: <Profile />,
+    },
+    {
+        type: "collapse",
+        name: "Чеклист",
+        key: "checklist",
+        icon: <Icon fontSize="small">check</Icon>,
+        route: "/checklist",
+        component: <Checklist />,
     },
 ];
 

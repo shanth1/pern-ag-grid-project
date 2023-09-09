@@ -100,7 +100,6 @@ StackList.defaultProps = {
 // Typechecking props for the ProfilesList
 StackList.propTypes = {
     title: PropTypes.string.isRequired,
-    profiles: PropTypes.arrayOf(PropTypes.object).isRequired,
     shadow: PropTypes.bool,
 };
 

@@ -38,8 +38,9 @@ function ProfileInfoCard({ title, description, info, social, shadow }) {
     ));
 
     // Render the card social media icons
-    const renderSocial = social.map(({ link, icon }) => (
+    const renderSocial = social.map(({ link, icon }, index) => (
         <MDBox
+            key={index.toString()}
             component="a"
             href={link}
             target="_blank"
@@ -107,12 +108,12 @@ ProfileInfoCard.defaultProps = {
 ProfileInfoCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    info: PropTypes.objectOf(PropTypes.string).isRequired,
+    info: PropTypes.arrayOf(PropTypes.object).isRequired,
     social: PropTypes.arrayOf(PropTypes.object).isRequired,
     action: PropTypes.shape({
         route: PropTypes.string.isRequired,
         tooltip: PropTypes.string.isRequired,
-    }).isRequired,
+    }),
     shadow: PropTypes.bool,
 };
 
